@@ -1,4 +1,12 @@
 import './css/styles.css';
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { refs } from './js/refs';
+import { fetchCountries } from './js/fetchCountries'
 
+const debounce = require('lodash.debounce');
 const DEBOUNCE_DELAY = 300;
+
+refs.inputRef.addEventListener('input', debounce(fetchCountries, DEBOUNCE_DELAY))
+
+
+
+

@@ -17,16 +17,19 @@ body {
 }
 
 #search-box {
+    position: absolute;
+    top: 20%;
     font: inherit;
     padding: 8px;
     max-width: 320px;
     margin-bottom: 16px;
+    border-radius: 5px;
+    border: 3px dotted;
 }
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
-
     position: absolute;
     top: 0;
     left: 0;
@@ -41,4 +44,23 @@ body {
 
 canvas {
     width: 100%;
+}
+
+li,
+ul {
+    font-weight: 500;
+    color: red;
+    display: block;
+    list-style: none;
+    margin-bottom: 10px;
+    padding: 0;
+}
+.name {
+    font-weight: 500;
+    color: white;
+}
+.card-name {
+    font-weight: 700;
+    font-size: 20px;
+    color: white;
 }
