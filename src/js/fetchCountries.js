@@ -3,8 +3,9 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { checkCountryNumber } from './checkCountry';
 
 
-export const fetchCountries = () => {
+export const fetchCountries = (event) => {
     refs.inputRef.value = refs.inputRef.value.trim();
+   
     fetch(`https://restcountries.com/v3.1/name/${refs.inputRef.value}?fields=name,capital,population,flags,languages`)
         .then(response => {
         if (!response.ok) {

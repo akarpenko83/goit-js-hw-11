@@ -23,7 +23,7 @@ export const renderCountry = (countries) => {
             </li>
             <li><span class="name">Population:  </span>${population}
             </li>
-            <li><span class="name">Languages:  </span>${Object.values(languages)}
+            <li><span class="name">Languages:  </span>${Object.values(languages).join(', ')}
             </li>
      </ul>
         `;
