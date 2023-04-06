@@ -1,0 +1,2 @@
+({formRef:document.querySelector("form")}).formRef.addEventListener("submit",(function(o){o.preventDefault(),e=o.currentTarget.elements.searchQuery.value;let t=`https://pixabay.com/api/?key=35064628-b4315bc92921e9ccef2ae28e5&q=${r=e,encodeURIComponent(r).replace(/%20/g,"+")}&image_type=photo&orientation=horizontal&safesearch=true`;var r;console.log(t),fetch(t).then((e=>(console.log(e),e.json()))).then((e=>console.dir(e))).catch((e=>console.error(e)))}));let e="";
+//# sourceMappingURL=index.d632f800.js.map
