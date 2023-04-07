@@ -16,7 +16,7 @@ export default class PixabayApi {
         const SAFESEARCH = 'safesearch=true';
         const PER_PAGE = "per_page=40"  
         const url = `${BASE_URL}${API_KEY}&q=${encodeQuery(this.searchQuery)}&${IMAGE_TYPE}&${ORIENTATION}&${SAFESEARCH}&page=${this.page}&${PER_PAGE}`; 
-        console.log(url);
+
     
       return fetch(url)
             .then(data => {
@@ -36,7 +36,6 @@ export default class PixabayApi {
             .catch(err => {
                 this.searchQuery = "";
                 this.form.reset();
-                console.error(err);
                 Notify.failure("Sorry, there are no images matching your search query. Please try again.");
             }); 
     }
