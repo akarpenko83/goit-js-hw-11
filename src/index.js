@@ -1,6 +1,8 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio'; 
 import PixabayApi from "./js/pixabay-service";
 import renderPictures from './js/render';
+import SimpleLightbox from "simplelightbox"
+import "simplelightbox/dist/simple-lightbox.min.css";
 
 const refs = {
     formRef: document.querySelector('form'),
@@ -10,6 +12,7 @@ const refs = {
 }
 
 const pixabayApi = new PixabayApi();
+let gallery = new SimpleLightbox('.gallery a', { captionsData: "alt", captionDelay: 250 });
 
 refs.formRef.addEventListener('submit', onSearch);
 refs.loadmoreRef.addEventListener('click', onLoadMore);
@@ -28,7 +31,8 @@ function onSearch(event) {
    
 }; 
 
-function onLoadMore() { 
+function onLoadMore() {
+    gallery.refresh();
     pixabayApi.fetchPhotos().then(appendPicturesToPage); 
 }
 
