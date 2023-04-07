@@ -28,7 +28,8 @@ export default class PixabayApi {
                 if (data.hits.length === 0) {
                 throw new Error(data.status)
                 };
-                incrementPage();
+                this.page += 1;
+                // incrementPage();
                 console.log(data.hits);
                 Notify.info(`Hooray! We found ${data.totalHits} images.`);
                 return data.hits;
@@ -47,9 +48,9 @@ export default class PixabayApi {
         this.searchQuery = newQuery;
      }
 };
-function incrementPage() {
-this.page += 1;
-}
+// function incrementPage() {
+// this.page += 1;
+// }
 
 function encodeQuery(searchQuery) {
     return encodeURIComponent(searchQuery).replace(/%20/g, "+");
