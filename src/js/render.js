@@ -1,7 +1,8 @@
 export default function renderPictures(pictures) {
     return pictures.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
     return `
-    <a href="${largeImageURL}">
+  <div class="gallery">
+          <a href="${largeImageURL}">
         <article class="post">
             <div class="photo-card gallery__item">
                 <img class="gallery__image" src="${webformatURL}" alt="${tags}" loading="lazy" />
@@ -26,7 +27,9 @@ export default function renderPictures(pictures) {
             </div>
         </article>
     </a>
+  </div>
         `;
         })
     .join("");
- };
+};
+ 
