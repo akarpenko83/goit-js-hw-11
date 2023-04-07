@@ -6,6 +6,10 @@
             name="viewport"
             content="width=device-width, initial-scale=1.0"
         />
+        <meta
+            http-equiv="Content-Security-Policy"
+            content="img-src https://*; child-src 'none';"
+        />
         <title>Amazing images</title>
         <link rel="stylesheet" href="./css/common.css" />
         <link rel="stylesheet" href="./css/gallery.css" />
@@ -27,7 +31,7 @@
                 </button>
             </div>
         </form>
-        <div class="gallery content"></div>
+        <div class="gallery content container"></div>
         <button
             class="load-more search-submit search-submit-centered"
             type="button"
