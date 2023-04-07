@@ -30,7 +30,8 @@ function onSearch(event) {
         return Notify.failure("Sorry, there are no images matching your search query. Please try again.");
     }
     clearPage();
-    pixabayApi.fetchPhotos().then(appendPicturesToPage);
+    pixabayApi.fetchPhotos().then(appendPicturesToPage)
+        .catch(error => console.log(error));
    
 }; 
 

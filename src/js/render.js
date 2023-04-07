@@ -1,5 +1,4 @@
 export default function renderPictures(pictures) {
-    console.dir(pictures);
     return pictures.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
     return `
     <a href="${largeImageURL}">

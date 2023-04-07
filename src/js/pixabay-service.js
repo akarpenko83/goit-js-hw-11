@@ -8,7 +8,6 @@ export default class PixabayApi {
     
     }
     fetchPhotos() {
-        console.log(this);
         const BASE_URL = 'https://pixabay.com/api/?key=';
         const API_KEY = '35064628-b4315bc92921e9ccef2ae28e5';
         const IMAGE_TYPE = 'image_type=photo';
