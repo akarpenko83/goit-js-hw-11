@@ -29,6 +29,7 @@ export default class PixabayApi {
                 throw new Error(data.status)
                 };
                 incrementPage();
+                console.log(data.hits);
                 Notify.info(`Hooray! We found ${data.totalHits} images.`);
                 return data.hits;
             })
