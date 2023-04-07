@@ -1,43 +1,42 @@
+import { Notify } from 'notiflix/build/notiflix-notify-aio'; 
+import PixabayApi from "./js/pixabay-service";
+import renderPictures from './js/render';
+
 const refs = {
     formRef: document.querySelector('form'),
+    inputRef: document.querySelector('input'),
+    loadmoreRef: document.querySelector('.load-more'),
+    galleryRef: document.querySelector('.gallery'),
 }
 
+const pixabayApi = new PixabayApi();
 
 refs.formRef.addEventListener('submit', onSearch);
-
-// ======================== pixabay ==================================
-let searchQuery = '';
-const API_KEY = '35064628-b4315bc92921e9ccef2ae28e5';
-const IMAGE_TYPE = 'image_type=photo';
-const ORIENTATION = 'orientation=horizontal';
-const SAFESEARCH = 'safesearch=true';
-
+refs.loadmoreRef.addEventListener('click', onLoadMore);
 
 function onSearch(event) {
     event.preventDefault();
-    searchQuery = event.currentTarget.elements.searchQuery.value;
-    let url = `https://pixabay.com/api/?key=${API_KEY}&q=${encodeQuery(searchQuery)}&${IMAGE_TYPE}&${ORIENTATION}&${SAFESEARCH}`;
-    console.log(url);
-    fetch(url)
-        .then(data => {
-        console.log(data);
-        return data.json()
-        
-    })
-        .then(data => console.dir(data))
-        .catch(err => console.error(err));
+   
+    pixabayApi.form = refs.formRef;
+    pixabayApi.query = event.currentTarget.elements.query.value.trim();
 
- }
+    if (pixabayApi.query === "") {
+        return Notify.failure("Sorry, there are no images matching your search query. Please try again.");
+    }
+    clearPage();
+    pixabayApi.fetchPhotos().then(appendPicturesToPage);
+   
+}; 
 
-function encodeQuery(searchQuery) {
-    return encodeURIComponent(searchQuery).replace(/%20/g, "+");
- }
+function onLoadMore() { 
+    pixabayApi.fetchPhotos().then(appendPicturesToPage); 
+}
 
+function appendPicturesToPage(pictures) {
+refs.galleryRef.insertAdjacentHTML('beforeend', renderPictures(pictures));
+};
 
-
-
-
-
-
-
-
+function clearPage() {
+    refs.galleryRef.innerHTML = '';
+}
+ 
