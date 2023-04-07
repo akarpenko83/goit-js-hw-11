@@ -3,7 +3,7 @@ import PixabayApi from "./js/pixabay-service";
 import renderPictures from './js/render';
 import SimpleLightbox from "simplelightbox"
 import "simplelightbox/dist/simple-lightbox.min.css";
-import InfiniteScroll from "infinite-scroll"
+// import InfiniteScroll from "infinite-scroll"
 
 const refs = {
     formRef: document.querySelector('form'),
