@@ -22,7 +22,7 @@ refs.loadmoreRef.addEventListener('click', appendPhotos);
 async function onSearch(event) {
     
     event.preventDefault();
-    refs.bodyRef.style.removeProperty('background');
+    
     pixabayApi.form = refs.formRef;
     pixabayApi.loadmore = refs.loadmoreRef;
     pixabayApi.query = event.currentTarget.elements.query.value.trim();
@@ -43,6 +43,7 @@ async function appendPhotos() {
         refs.loadmoreRef.style.visibility = "hidden";
         renderPhotos(await pixabayApi.fetchPhotos());
         refs.loadmoreRef.style.visibility = "visible";
+        
     } catch (error) {
         console.log(error);
         // Notify.failure("Sorry, there are no images matching your search query. Please try again.");
