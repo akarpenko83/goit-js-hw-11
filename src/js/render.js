@@ -1,4 +1,4 @@
-export default function renderPictures(pictures) {
+export default function createMarkup(pictures) {
     return pictures.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
     return `
   <div class="gallery">

@@ -47,3 +47,6 @@
 .search-form .input-group {
     text-align: center;
 }
+.load-more {
+    visibility: hidden;
+}

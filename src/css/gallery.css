@@ -48,8 +48,10 @@
 }
 .info {
     display: flex;
+    justify-content: space-evenly;
 }
 .info-item {
-    display: block;
+    display: flex;
+    flex-direction: column;
     text-align: center;
 }
