@@ -79,15 +79,16 @@ export default class PixabayApi {
             const response = await axios.get(url, axiosParams);
             const totalPages = Math.ceil(response.data.totalHits / axiosParams.params.per_page);
             
-            console.log("totalPages: ", totalPages, "currant page: ", this.page);
+            console.log("totalPages: ", totalPages, "current page: ", this.page);
             console.log(response);
+
             if (response.data.hits.length === 0) {
                 Notify.failure("Sorry, there are no images matching your search query. Please try again.");
                 throw new Error(response)
                 };
             if (totalPages === this.page) {
                 Notify.warning("We're sorry, but you've reached the end of search results.");
-                this.loadmore.style.visibility = "hidden";
+               
             }
             if (totalPages > this.page) {
                 this.loadmore.style.visibility = "visible";
@@ -99,29 +100,6 @@ export default class PixabayApi {
             this.searchQuery = "";
             this.loadmore.style.visibility = "hidden";
          }
-        // return await axios
-        //  .get(url, axiosParams)
-            // .then(response => {
-                // console.log(response);
-                // console.log(this.loadmore);
-                // console.log(url);
-                // console.log(this.page);
-                // if (response.status !== 200) {
-                // throw new Error(error.response.message);
-                // }; 
-                // if (response.data.hits.length === 0) {
-                // throw new Error(response)
-                // };
-            //     Notify.info(`Hooray! We found ${response.data.totalHits} images on ${Math.ceil(response.data.totalHits / 40)} pages. Current page: ${this.page}`);
-            //     this.page += 1;            
-            //     return response.data.hits;
-            // })
-            //   .catch((error) => {
-            //       this.searchQuery = "";
-            //       this.loadmore.style.visibility = "hidden";
-            //       console.log(error.response, error.status, error.message); 
-                  
-            // }); 
     }
     get query() {
         return this.searchQuery;
@@ -132,10 +110,6 @@ export default class PixabayApi {
         this.loadmore.style.visibility = "hidden";
      }
 };
-// function incrementPage() {
-// this.page += 1;
-// }
-
 function encodeQuery(searchQuery) {
     return encodeURIComponent(searchQuery).replace(/%20/g, "+");
 };

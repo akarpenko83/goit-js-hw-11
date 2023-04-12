@@ -1,6 +1,6 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio'; 
 import PixabayApi from "./js/pixabay-service";
-import createMarkup from './js/render';
+import createMarkup from './js/markup';
 import SimpleLightbox from "simplelightbox"
 import "simplelightbox/dist/simple-lightbox.min.css";
 
@@ -19,46 +19,48 @@ const gallery = new SimpleLightbox('.gallery a', { captionsData: "alt", captionD
 refs.formRef.addEventListener('submit', onSearch);
 refs.loadmoreRef.addEventListener('click', appendPhotos);
 
-async function onSearch(event) {
+function onSearch(event) {
     
     event.preventDefault();
     
     pixabayApi.form = refs.formRef;
     pixabayApi.loadmore = refs.loadmoreRef;
     pixabayApi.query = event.currentTarget.elements.query.value.trim();
-    if (pixabayApi.query === "") {
-        return Notify.failure("Sorry, your query is empty. Please try enter something.");
-    }
 
-    clearPage();
-    await appendPhotos()
-    await scrollTo({
-        top: 0,
-        behavior:"smooth"
-    })
+    handleSearch(pixabayApi.query);
 }; 
 
+async function handleSearch() {
+    try {
+    if (pixabayApi.query === "") {
+    throw new Error()
+    }
+    clearPage();
+    await appendPhotos()
+    await scrollToTop();
+    } catch (error) {
+        console.log(error);
+        return Notify.failure("Sorry, your query is empty. Please try enter something.");
+    }
+}
 async function appendPhotos() {
     try {
         refs.loadmoreRef.style.visibility = "hidden";
-        renderPhotos(await pixabayApi.fetchPhotos());
-     
-        
+        renderPhotos(await pixabayApi.fetchPhotos());  
     } catch (error) {
-        console.log(error);
-        // Notify.failure("Sorry, there are no images matching your search query. Please try again.");
-        
+        console.log(error);    
      }
-    
     gallery.refresh();
-    
- }
-
+}
 function renderPhotos(pictures) {
     refs.galleryRef.insertAdjacentHTML('beforeend', createMarkup(pictures));
 };
-
 function clearPage() {
     refs.galleryRef.innerHTML = '';
 }
- 
+function scrollToTop() {
+    scrollTo({
+        top: 0,
+        behavior:"smooth"
+    })
+}
