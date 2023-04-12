@@ -5,6 +5,7 @@ import SimpleLightbox from "simplelightbox"
 import "simplelightbox/dist/simple-lightbox.min.css";
 
 const refs = {
+    bodyRef: document.querySelector('body'),
     formRef: document.querySelector('form'),
     inputRef: document.querySelector('input'),
     loadmoreRef: document.querySelector('.load-more'),
@@ -21,6 +22,7 @@ refs.loadmoreRef.addEventListener('click', appendPhotos);
 async function onSearch(event) {
     
     event.preventDefault();
+    refs.bodyRef.style.removeProperty('background');
     pixabayApi.form = refs.formRef;
     pixabayApi.loadmore = refs.loadmoreRef;
     pixabayApi.query = event.currentTarget.elements.query.value.trim();
