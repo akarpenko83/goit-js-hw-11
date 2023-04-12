@@ -42,7 +42,7 @@ async function appendPhotos() {
     try {
         refs.loadmoreRef.style.visibility = "hidden";
         renderPhotos(await pixabayApi.fetchPhotos());
-        refs.loadmoreRef.style.visibility = "visible";
+     
         
     } catch (error) {
         console.log(error);

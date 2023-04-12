@@ -88,7 +88,10 @@ export default class PixabayApi {
             if (totalPages === this.page) {
                 Notify.warning("We're sorry, but you've reached the end of search results.");
                 this.loadmore.style.visibility = "hidden";
-             }
+            }
+            if (totalPages > this.page) {
+                this.loadmore.style.visibility = "visible";
+            }
             Notify.info(`Hooray! We found ${response.data.totalHits} images on ${totalPages} pages. Current page: ${this.page}`);
                 this.page += 1;            
                 return response.data.hits;
