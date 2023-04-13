@@ -3,28 +3,32 @@ import PixabayApi from "./js/pixabay-service";
 import createMarkup from './js/markup';
 import SimpleLightbox from "simplelightbox"
 import "simplelightbox/dist/simple-lightbox.min.css";
+import ButtonLoadMore from './components/BtnLoadMore';
 
 const refs = {
     bodyRef: document.querySelector('body'),
     formRef: document.querySelector('form'),
     inputRef: document.querySelector('input'),
-    loadmoreRef: document.querySelector('.load-more'),
     galleryRef: document.querySelector('.gallery'),
-
+    // listenItemRef: document.querySelector()
 }
+
+const buttonLoadMore = new ButtonLoadMore({
+    selector: ".load-more",
+    isHidden: true,
+});
+
+buttonLoadMore.button.addEventListener('click', appendPhotos);
 
 const pixabayApi = new PixabayApi();
 const gallery = new SimpleLightbox('.gallery a', { captionsData: "alt", captionDelay: 250 });
 
 refs.formRef.addEventListener('submit', onSearch);
-refs.loadmoreRef.addEventListener('click', appendPhotos);
 
 function onSearch(event) {
-    
     event.preventDefault();
     
     pixabayApi.form = refs.formRef;
-    pixabayApi.loadmore = refs.loadmoreRef;
     pixabayApi.query = event.currentTarget.elements.query.value.trim();
 
     handleSearch(pixabayApi.query);
@@ -40,17 +44,34 @@ async function handleSearch() {
     await scrollToTop();
     } catch (error) {
         console.log(error);
+        buttonLoadMore.hide();
         return Notify.failure("Sorry, your query is empty. Please try enter something.");
+        
     }
 }
 async function appendPhotos() {
     try {
-        refs.loadmoreRef.style.visibility = "hidden";
-        renderPhotos(await pixabayApi.fetchPhotos());  
+        buttonLoadMore.show();
+        buttonLoadMore.disable();
+        renderPhotos(await pixabayApi.fetchPhotos()); 
+        buttonLoadMore.enable();
     } catch (error) {
-        console.log(error);    
+        console.log(error); 
+        buttonLoadMore.hide();
      }
     gallery.refresh();
+// --------------------- intersection observer --------------------
+// const options = {
+//     rootMargin: '0px',
+//     threshold: 0.1,
+// }
+// const callback = function(entries, observer) {
+//     appendPhotos;
+// };
+// const observer = new IntersectionObserver(callback, options);
+// const target = document.querySelector(refs.galleryRef.lastElementChild);
+// observer.observe(target);
+// ----------------------------------------------------------------
 }
 function renderPhotos(pictures) {
     refs.galleryRef.insertAdjacentHTML('beforeend', createMarkup(pictures));

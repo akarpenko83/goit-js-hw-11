@@ -47,6 +47,9 @@
 .search-form .input-group {
     text-align: center;
 }
-.load-more {
+.hidden {
     visibility: hidden;
+}
+.disabled {
+    background-color: #c5c5c7;
 }
