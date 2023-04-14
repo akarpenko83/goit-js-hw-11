@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import ButtonLoadMore from '../components/BtnLoadMore';
+import ButtonLoadMore from './BtnLoadMore';
 export default class PixabayApi {
     constructor() {
         this.searchQuery = '';
