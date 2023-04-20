@@ -10,16 +10,7 @@ const refs = {
     formRef: document.querySelector('form'),
     inputRef: document.querySelector('input'),
     galleryRef: document.querySelector('.gallery'),
-    // listenItemRef: document.querySelector()
 }
-
-// const buttonLoadMore = new ButtonLoadMore({
-//     selector: ".load-more",
-//     isHidden: true,
-// });
-
-// buttonLoadMore.button.addEventListener('click', appendPhotos);
-
 const pixabayApi = new PixabayApi();
 const gallery = new SimpleLightbox('.gallery a', { captionsData: "alt", captionDelay: 250 });
 
@@ -45,33 +36,18 @@ async function handleSearch() {
     intersection()    
     } catch (error) {
         console.log(error);
-        buttonLoadMore.hide();
         return Notify.failure("Sorry, your query is empty. Please try enter something.");     
     }
 }
 async function appendPhotos() {
     try {
-        // buttonLoadMore.show();
-        // buttonLoadMore.disable();
         await renderPhotos(await pixabayApi.fetchPhotos());
-
-        // buttonLoadMore.enable();
     } catch (error) {
         console.log(error);
-        // buttonLoadMore.hide();
      }
     gallery.refresh();
 }
-// async function appendPhotos() {
-//     try {
 
-//         await renderPhotos(await pixabayApi.fetchPhotos()); 
-
-//     } catch (error) {
-//         console.log(error); 
-//      }
-//     gallery.refresh();
-// }
 function renderPhotos(pictures) {
     refs.galleryRef.insertAdjacentHTML('beforeend', createMarkup(pictures));
 };
